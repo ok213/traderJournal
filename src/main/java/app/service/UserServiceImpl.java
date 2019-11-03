@@ -22,9 +22,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(User user) {
-        if (userRepository.findUserByEmail(user.getEmail()) == null) {
-            userRepository.save(user);
-        }
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
+        user.setRoles(null);
+        userRepository.save(user);
     }
 
     @Override
@@ -40,5 +43,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 }

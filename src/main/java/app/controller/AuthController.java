@@ -19,17 +19,17 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String loginPage() {
-        return "signin/login";
+        return "auth/login";
     }
 
-    @GetMapping("registration")
+    @GetMapping("/registration")
     public String registrationPage() {
-        return "signin/registration";
+        return "auth/registration";
     }
 
-    @PostMapping("registration")
+    @PostMapping("/registration")
     public String registrationProcessing(@Valid @ModelAttribute("user") User user, Map<String, Object> model) {
         if (userService.findUserByEmail(user.getEmail()) != null) {
             model.put("message", "User exists!");

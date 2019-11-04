@@ -13,19 +13,17 @@ import java.util.Set;
 
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (roles.contains("ROLE_ADMIN")) {
+        if (roles.contains("ADMIN")) {
             response.sendRedirect("/admin");
-        } else {
-            response.sendRedirect("/");
+            return;
         }
 
+        response.sendRedirect("/user");
     }
 
 }
